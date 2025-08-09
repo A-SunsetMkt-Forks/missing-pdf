@@ -48,10 +48,11 @@
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.6\textwidth]{assets/basic/Two_CPUs.pdf}
+  \includegraphics[width=.55\textwidth]{assets/basic/Two_CPUs.pdf}
   \caption{常见的台式机和笔记本电脑的处理器芯片}
   \label{fig:Two_CPUs}
 \end{figure}
+\vspace*{-2ex}
 
 \begin{note}
   你可能会疑惑：这两个 CPU 为什么看起来很不一样？这是因为笔记本 CPU 为了节省空间，会直接将 \underline{➋「晶片」}（芯片的核心部分，由硅制成）裸露在外；而台式机 CPU 为了保护晶片，会在其外罩上一层 \underline{➊ 金属盖}。
@@ -86,16 +87,17 @@
     大多数使用英特尔 CPU 的电脑，机器表面会贴一个类似\autoref{fig:Intel_sticker} 左侧的蓝色（或灰色、黑色）贴纸。对于笔记本电脑，通常贴在键盘下方或机器背面；而对于品牌台式机，则通常贴在机器正面、侧面或顶面，如\autoref{fig:Intel_sticker} 右侧所示。
     \begin{figure}[htb!]
       \centering
-      \includegraphics[width=.7\textwidth]{assets/basic/Intel_sticker.png}
+      \includegraphics[width=.65\textwidth]{assets/basic/Intel_sticker.png}
       \caption{英特尔的贴纸}
       \label{fig:Intel_sticker}
-    \end{figure}\\
+    \end{figure}\\\vspace*{-4ex}
     \begin{figure}[htb!]
       \centering
       \includegraphics[width=.6\textwidth]{assets/basic/AMD_sticker.png}
       \caption{AMD的贴纸}
       \label{fig:AMD_sticker}
     \end{figure}
+    \vspace*{-2ex}
   \item AMD 公司现在主要的 CPU 产品线称作「锐龙」（Ryzen），而锐龙系列也分成了 3 个档次——「R5」「R7」和「R9」\footnote{其实还有 R3，但是很少在消费市场见到。}。大多数使用 AMD CPU 的电脑会粘贴类似\autoref{fig:AMD_sticker} 的橙黑或橙灰色贴纸。
 \end{itemize}
 
@@ -107,18 +109,18 @@
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.6\textwidth]{assets/basic/Multicore.pdf}
+  \includegraphics[width=.55\textwidth]{assets/basic/Multicore.pdf}
   \caption{多核CPU示意}
   \label{fig:Multicore}
 \end{figure}
 
-然而，核心数只能反映「脑子多不多」，但无法刻画「一个脑子有多快」。要衡量一颗 CPU 的性能，除了直观地根据厂商划定的这些低中高端系列之外，「主频」也是一个重要的参考。所谓「主频」指的是这 CPU 一秒种能够「工作」的次数，人们通常使用单位「GHz」来标注它。1 GHz 就表示「1 秒能『工作』10 亿次」。CPU 通常有一个「基准频率」和「加速频率」，前者是 CPU 正常工作时的稳定频率，后者则是在短时间内应对复杂任务时能达到的最高频率。目前，常见的台式机 CPU 的基准频率和加速频率能达到 3 GHz 和 5 GHz，而笔记本则在 2 GHz 和 4 GHz 左右。
+然而，核心数只能反映「脑子多不多」，但无法刻画「一个脑子有多快」。要衡量一颗 CPU 的性能，除了直观地根据厂商划定的这些低中高端系列之外，「主频」也是一个重要的参考。所谓「主频」指的是这 CPU 一秒钟能够「工作」的次数，人们通常使用单位「GHz」来标注它。1 GHz 就表示「1 秒能『工作』10 亿次」。CPU 通常有一个「基准频率」和「加速频率」，前者是 CPU 正常工作时的稳定频率，后者则是在短时间内应对复杂任务时能达到的最高频率。目前，常见的台式机 CPU 的基准频率和加速频率能达到 3 GHz 和 5 GHz，而笔记本则在 2 GHz 和 4 GHz 左右。
 
 需要强调的是，\regcolor{并不是说核心数越多、主频越高的处理器性能一定越好}，更\regcolor{不是说 i7 处理器就一定比 i5 更好}，也\regcolor{不是说英特尔和 AMD 有孰优孰劣之分}。我们应该综合理解这些概念：每个品牌都会随着时间推移一代代地更新，每一代都有着的不同系列，有的系列高端，有的系列低端；每个系列也都有自己的不同型号，有的型号性能强，有的型号性能弱。CPU 的性能并不与某一个因素呈线性的关系，而是多个因素叠加的结果。
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.7\textwidth]{assets/basic/Check_CPU.png}
+  \includegraphics[width=.65\textwidth]{assets/basic/Check_CPU.png}
   \caption{在任务管理器看看CPU}
   \label{fig:Check_CPU}
 \end{figure}
@@ -211,7 +213,7 @@
 \regcolor{硬盘对电脑使用体验的影响，主要是打开软件的速度，包括开机的速度。}这是很容易理解的，因为数据和软件本身原先都是存在硬盘里的，处理器从硬盘里取数据的速度就直接影响着软件启动或者说加载的时间。
 
 \begin{note}
-  手机中用类似固态硬盘一样的芯片来存储数据，有些手机厂商和商家会称之为「内置存储」「存储内存」甚至是「内存」，但它\regcolor{完全不是}内存。这是为什么有人会弄混内存和硬盘的根源之一。人们常说的「手机内存不够」，指的往往是存储空间（可以称「手机的硬盘」）不够，而不是真正的「内存不够」。
+  手机用「闪存」来存储数据，如照片、视频和 app。某些手机厂商或商家常将其称为「内置存储」「存储内存」，甚至直接叫作「内存」，但它\regcolor{完全不是}真正的内存，本质上相当于固态硬盘上面的存储芯片。这也是人们常将内存与硬盘混淆的根源之一。日常生活中所说的「手机内存不够」，其实大多指的是存储空间不足，即「手机的硬盘」容量不够，而不是真正意义上的内存不足。
 \end{note}
 
 \begin{figure}[htb!]
@@ -231,7 +233,7 @@
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=8cm]{assets/basic/GPU_parts.png}
+  \includegraphics[width=.5\textwidth]{assets/basic/GPU_parts.png}
   \caption{老显卡（也是现在显卡）的各部分}
   \label{fig:GPU_parts}
 \end{figure}
@@ -247,14 +249,14 @@
   \item \regcolor{独立显卡}，简称「\regcolor{独显}」。GPU 仍然是一片独立的芯片，以显卡模块的形式安装在电脑内。这样的 GPU 性能较强，但换来的是更高的功耗、更大的体积和更多的发热等。如果你喜欢玩游戏（尤其是大型 3D 游戏），又或者从事视频编辑、三维设计等工作，那么一台装有独立显卡的电脑可能是你的刚需。
 \end{itemize}
 
-今天，全世界生产\regcolor{独立显卡}的厂商主要有两家，一家叫「英伟达」（NVIDIA），它旗下的显卡俗称「N 卡」；另一家则是前文提到过的 AMD，它推出的显卡俗称「A 卡」。如果你有涉足过游戏交流圈，玩家所说的「RTX 4090」「GTX 1080 Ti」等都是英伟达显卡的型号，而「RX 6800 XT」「RX 580」等都是 AMD 显卡的型号。下图是英伟达网站上出售的\CJKsout*{《黑神话·悟空》联名款的} RTX 4070 Super 高端显卡，可以看到显卡上有三个大尺寸的散热风扇，这从侧面说明其功耗之大、发热之多。
-
 \begin{figure}[htb!]
   \centering
   \includegraphics[width=.6\textwidth]{assets/basic/4070_storepage.png}
   \caption{在售的RTX 4070 Super}
   \label{fig:4070_storepage}
 \end{figure}
+
+今天，全世界生产\regcolor{独立显卡}的厂商主要有两家，一家叫「英伟达」（NVIDIA），它旗下的显卡俗称「N 卡」；另一家则是前文提到过的 AMD，它推出的显卡俗称「A 卡」。如果你有涉足过游戏交流圈，玩家所说的「RTX 4090」「GTX 1080 Ti」等都是英伟达显卡的型号，而「RX 6800 XT」「RX 580」等都是 AMD 显卡的型号。\autoref{fig:4070_storepage} 是英伟达网站上出售的\CJKsout*{《黑神话·悟空》联名款的} RTX 4070 Super 高端显卡，可以看到显卡上有三个大尺寸的散热风扇，这从侧面说明其功耗之大、发热之多。
 
 \begin{note}
   除了英伟达和 AMD 之外，市面上也有一些其他品牌的独立显卡。或许来源于在集成显卡设计上的经验，英特尔也推出了自己的独立显卡系列。同时，我国公司「摩尔线程」也率先推出了面向民用市场的国产显卡，具有比较优秀的理论性能。然而，由于市面上的游戏、软件大都主要针对英伟达和 AMD 显卡进行设计、优化，摩尔线程显卡的实际体验目前还有许多的提升空间。
@@ -284,7 +286,7 @@
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.75\textwidth]{assets/basic/OS_structure.pdf}
+  \includegraphics[width=.85\textwidth]{assets/basic/OS_structure.pdf}
   \caption{App、操作系统和硬件的关系}
   \label{fig:OS_structure}
 \end{figure}
@@ -299,7 +301,7 @@
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.8\textwidth]{assets/basic/Three_systems.pdf}
+  \includegraphics[width=.95\textwidth]{assets/basic/Three_systems.pdf}
   \caption{三大主流电脑操作系统}
   \label{fig:Three_systems}
 \end{figure}
@@ -314,7 +316,7 @@ Windows 由美国的微软公司所开发，诞生于 1985 年。到今天（202
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.9\textwidth]{assets/basic/Win_11_and_10.pdf}
+  \includegraphics[width=.95\textwidth]{assets/basic/Win_11_and_10.pdf}
   \caption{如今的两大Windows}
   \label{fig:Win_11_and_10}
 \end{figure}

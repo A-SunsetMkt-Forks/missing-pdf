@@ -204,7 +204,7 @@
 每次我们启动网易云音乐，运行的都是 \MissingVerb{cloudmusic.exe} 这个可执行文件。然而，这个文件的运行离不开放在它边上的那一堆辅助文件——如果你把 \MissingVerb{cloudmusic.exe} 复制到另外的一个地方，双击运行，大概率会直接报错；即使不报错，功能也必不完全正常。在后续的章节，我们在介绍软件的安装与卸载时，会继续提到这件事。
 
 \begin{note}
-  好奇这 \MissingVerb{exe} 文件里面到底是什么？答案将在超越篇的\chapref{cha:program-and-arch}揭晓。
+  好奇这 \MissingVerb{exe} 文件里面到底是什么？答案将在超越篇的\chapref{cha:program-and-arch} 揭晓。
 \end{note}
 
 \section{文件的「替身」——快捷方式}
@@ -421,11 +421,13 @@ Windows 11 系统中，默认情况下，所有的已知文件夹会被固定在
 
 默认情况下，\cprotect\regcolor{已知文件夹的实际位置在 \MissingVerb{C:\用户\<你的用户名>}，这是你的「用户配置文件夹」（User Profile Folder，俗称「用户文件夹」）。}除了直接在【此电脑】中查看外，你也可以手动打开这个路径来找到它们。已知文件夹涵盖了「桌面」「文档」「图片」「音乐」「视频」等多种类别，并且都配有形象的图标。如果你计划将自己的文件存放在 C 盘，这些目录是不错的选择：毕竟，C 盘作为 Windows 的系统分区，有严格的保护机制，最好不要把你的文件直接放在 C 盘根目录下。
 
+但如果你打算把自己的文件放到其他的分区，你的选择就会自由很多，各个分区的根目录也许是不错的位置。你可以仿照 Windows 给你的已知文件夹，自己在其他分区的根目录下按类别新建好「文档」「电影」「音频」等文件夹，用来帮助自己整理文件。或者更直接点，\regcolor{你还可以将 Windows 提供给你的这些已知文件夹迁移到其他分区}，这样它们的实际位置就不再是 \MissingVerb{C:\用户\<你的用户名>}，而是你选定的地方了。例如，如果你想使用 D 盘根目录即 \MissingVerb{D:\} 来存放这些已知文件夹，可以按下面的步骤操作。
+
 \begin{warning}
   如果你的电脑登录了 OneDrive（微软推出的云同步盘），并且针对文档、图片等已知文件夹启用了备份功能，那么它们可能已经被迁移到了你的 OneDrive 文件夹下。默认情况下它是 \MissingVerb{C:\用户\<你的用户名>\OneDrive}。\regcolor{此时，你很可能无法再按后文的步骤，将它们迁移到其他地方。}
-\end{warning}
 
-如果你打算把自己的文件放到其他的分区，各个分区的根目录都是不错的选择。你可以仿照 Windows 给你的已知文件夹，自己在其他分区的根目录下按类别新建好「文档」「电影」「音频」等文件夹，用来帮助自己整理文件。更进一步，\regcolor{你还可以直接将 Windows 提供给你的这些已知文件夹迁移到其他分区}，这样它们的实际位置就不再是 \MissingVerb{C:\用户\<你的用户名>}，而是你指定的地方了。例如，如果你想使用 D 盘根目录即 \MissingVerb{D:\} 来存放这些已知文件夹，可以按下面的步骤操作。
+  若你曾把某些软件安装在了已知文件夹下（如「文档」或「桌面」里面——不是快捷方式，是软件本体在里面），那么\regcolor{按下文的步骤迁移对应的已知文件夹后，那些软件可能无法正常使用}。
+\end{warning}
 
 \begin{itemize}
   \item 在资源管理器中，右击某个我们想要迁移的文件夹（比如【文档】），选择【属性】，然后切换到【位置】选项卡，如\autoref{fig:Pos_of_Documents}。
@@ -435,15 +437,7 @@ Windows 11 系统中，默认情况下，所有的已知文件夹会被固定在
       \caption{查看「文档」的位置}
       \label{fig:Pos_of_Documents}
     \end{figure}
-  \item 我们将这里文本框中
-    \begin{MissingVerbatim}
-      C:\Users\<你的用户名>\
-    \end{MissingVerbatim}\\
-    这一部分\cprotect\regcolor{（注意：最后一个\MissingVerb{Desktop}、\MissingVerb{Documents}之类的名字不要动！）}\footnote{如果你不小心把一个已知文件夹的位置设置成了某个磁盘的根目录（比如说\MissingTT{D:\textbackslash}），可能很难再改回来。}改成
-    \begin{MissingVerbatim}
-      D:\
-    \end{MissingVerbatim}
-    \regcolor{也就是说，对于「桌面」而言，改完之后的完整路径是}
+  \item 我们将此处文本框中内容的 \MissingVerb{C:\Users\<你的用户名>\}这一部分\cprotect\regcolor{（注意：最后一个 \MissingVerb{Documents} 之类的名字不要动！）}\footnote{如果你不小心把一个已知文件夹的位置设置成了某个磁盘的根目录（比如说\MissingTT{D:\textbackslash}），可能很难再改回来。}改成 \MissingVerb{D:\}。\regcolor{也就是说，对于「文档」而言，改完之后的完整路径是：}
     \begin{MissingVerbatim}
       D:\Documents
     \end{MissingVerbatim}

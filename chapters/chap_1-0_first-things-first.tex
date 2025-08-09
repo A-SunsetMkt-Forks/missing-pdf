@@ -19,13 +19,20 @@
 
 \section{文中的标记符号}
 
-在《你缺计课》中，我们使用方头括号「【】」来标记所有屏幕上字面显示的选项。例如，当我们希望你右键桌面上的图标
-\begin{figure}[htb!]
+\begin{wrapfigure}[5]{r}{2.5cm}
   \centering
+  \vspace*{-1ex}
   \includegraphics[width=2cm]{assets/basic/This_PC.png}
-\end{figure}
+  % \caption{一些文件}
+  % \label{fig:5_files}
+\end{wrapfigure}
 
-\noindent 时，我们会称「右键【此电脑】」。
+在《你缺计课》中，我们使用方头括号「【】」来标记所有屏幕上字面显示的选项。例如，当我们希望你右键桌面上长得右图一样的图标时，我们会称「右键【此电脑】」。
+
+% \begin{figure}[htb!]
+%   \centering
+%   \includegraphics[width=2cm]{assets/basic/This_PC.png}
+% \end{figure}
 
 我们使用右箭头「→」来表示下一步操作。例如，「右键【此电脑】→【属性】」的意思是，右键桌面上的【此电脑】图标，然后在弹出的菜单中点击【属性】。
 
@@ -41,6 +48,34 @@
 这种特殊外框的文字是上述“代码片段”等内容的“升级版”，在内容太长，行内空间不足以展示时使用。这种环境包含的内容不能随意换行，过长的一行文字会用假换行标记标出，比如这行，看起来有三行，其实是一行。
 这才是第二行。
 \end{MissingVerbatim}
+
+\section{《你缺计课》适合我的电脑吗？}
+
+《你缺计课》适合所有使用 Windows 11 或 Windows 10 操作系统的电脑，书中所有操作均基于它们的简体中文版描述。如果你使用的是 Windows 11 或者 Windows 10，那么《你缺计课》非常适合你！
+
+上一代的 Windows 版本，比如 Windows 7 或 Windows 8.1，在部分操作的细节上与 Windows 11 和 Windows 10 有不同——例如，在 Windows 7 中，修改系统设置要前往「控制面板」而非「设置」app。如果你使用的是这些早期 Windows 版本，你依然可以运用本书学习大量的通用知识，但在涉及具体操作时，你可能需要查阅其他资料。
+
+如果你在使用非 Windows 的操作系统，比如苹果电脑上的 macOS、华为的「鸿蒙」系统或是各种 Linux 发行版，本书介绍的所有操作都可能不再适用。不过，本书介绍的大量通用的计算机科学知识——从\hyperref[cha:computer-and-its-components]{\CJKunderwave{电脑硬件的组成}}，到「\hyperref[cha:file-and-file-management]{\CJKunderwave{文件}}」「\hyperref[cha:archive-formats-and-tools]{\CJKunderwave{压缩}}」等概念，以及\hyperref[cha:browsers-and-how-to-choose]{\CJKunderwave{浏览器}}、\hyperref[cha:mail-and-instant-messaging]{\CJKunderwave{即时通信工具}}、\hyperref[cha:office-and-wps]{\CJKunderwave{办公软件}}之间的相互比较，再到 \hyperref[cha:bring-intelligence-to-machines]{\CJKunderwave{人工智能}}、\hyperref[cha:introduction-to-cryptology]{\CJKunderwave{密码学}}和\hyperref[cha:cloud-computing-and-iot]{\CJKunderwave{云计算}}这些前沿话题——并不局限于某一特定的操作系统。你可以将本书作为一本科普读物，尽管它无法指导你具体的电脑操作，但仍然可以教给你许多知识。
+
+不知道什么是「操作系统」？请参阅\chapref{cha:computer-and-its-components}。
+
+\section{最最基础的预备知识}
+
+虽然《你缺计课》自称「『零门槛』电脑课」，但我们还是希望读者有按过几下键盘、点过几下鼠标的经验。我们不会一个个按钮地告诉各位怎么去点，也不会一块块区域地告诉各位它在哪里，如果有些基本术语你不甚了解，下面的示意图可能会有所帮助。
+
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[width=.85\textwidth]{assets/basic/Simple_Computer.pdf}
+  \caption{电脑各部分的结构}
+  \label{fig:Simple_Computer}
+\end{figure}
+
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[width=.85\textwidth]{assets/basic/Simple_Windows.pdf}
+  \caption{Windows 的基本组件}
+  \label{fig:Simple_Windows}
+\end{figure}
 
 \section{快捷键的操作说明}
 
