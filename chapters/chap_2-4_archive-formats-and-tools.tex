@@ -50,7 +50,7 @@ Ask not what your country can do for you—ask what you can do for your country.
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.9\textwidth]{assets/software/Compress_a_sentence.pdf}
+  \includegraphics[width=.85\textwidth]{assets/software/Compress_a_sentence.pdf}
   \caption{压缩一个句子}
   \label{fig:Compress_a_sentence}
 \end{figure}
@@ -61,7 +61,7 @@ Ask not what your country can do for you—ask what you can do for your country.
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.8\textwidth]{assets/software/Compress_and_Extract.pdf}
+  \includegraphics[width=.75\textwidth]{assets/software/Compress_and_Extract.pdf}
   \caption{压缩与解压}
   \label{fig:Compress_and_Extract}
 \end{figure}
@@ -93,7 +93,7 @@ Ask not what your country can do for you—ask what you can do for your country.
 
 \section{常见的压缩文件格式}
 
-在开始介绍这些格式之前，我们先引入一个叫做「压缩率」的概念。\regcolor{「压缩率」表示一次「压缩」操作后文件还占原先多少比例的空间}：假设一堆文件原来的总体积是 100 MB，在压缩成某种格式的压缩文件后，体积变成了 86 MB，这时的压缩率就是 $86/100 = 86\%$。这么一来，压缩率的值显然越低越好。\footnote{还有些压缩软件中的「压缩率」是 (1 - \text{我们这里说的压缩率})。例如正文中那个压缩率为 $86\%$ 的例子，这些软件给出的「压缩率」值会是 $14\%$。这样定义的「压缩率」则是越高越好，使用压缩软件时要注意区分。}但缩率不仅与压缩文件格式有关，也与源文件本身的性质有关，不过我们仍然可以以「平均工作情况下的压缩率水平」的高低来笼统地比较几种不同的压缩文件格式。
+在开始介绍这些格式之前，我们先引入一个叫做「压缩率」的概念。\regcolor{「压缩率」表示一次「压缩」操作后文件还占原先多少比例的空间}：假设一堆文件原来的总体积是 100 MB，在压缩成某种格式的压缩文件后，体积变成了 86 MB，这时的压缩率就是 $86/100 = 86\%$。这么一来，压缩率的值显然越低越好。\footnote{还有些压缩软件中的「压缩率」是 $(1 - \text{我们这里说的压缩率})$。例如正文中那个压缩率为 $86\%$ 的例子，这些软件给出的「压缩率」值会是 $14\%$。这样定义的「压缩率」则是越高越好，使用压缩软件时要注意区分。}但缩率不仅与压缩文件格式有关，也与源文件本身的性质有关，不过我们仍然可以以「平均工作情况下的压缩率水平」的高低来笼统地比较几种不同的压缩文件格式。
 
 \subsection{ZIP 格式——最广泛应用的格式}
 
@@ -125,9 +125,9 @@ RAR 格式的压缩率通常比 ZIP 低不少。除此之外，它还支持一�
 
 \subsection{压缩工具的使用}
 
-\begin{wrapfigure}[8]{r}{6cm}
+\begin{wrapfigure}[7]{r}{6cm}
   \centering
-  \vspace*{-1.5cm}
+  \vspace*{-1.8cm}
   \includegraphics[width=5.5cm]{assets/software/Context_menu_of_Bandizip.png}
   \caption{Bandizip 的右键菜单}
   \label{fig:Context_menu_of_Bandizip}
@@ -199,7 +199,7 @@ RAR 格式的压缩率通常比 ZIP 低不少。除此之外，它还支持一�
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.65\textwidth]{assets/software/explorer-open-zip.png}
+  \includegraphics[width=.62\textwidth]{assets/software/explorer-open-zip.png}
   \caption{资源管理器打开压缩包}
   \label{fig:explorer-open-zip}
 \end{figure}
@@ -214,14 +214,14 @@ RAR 格式的压缩率通常比 ZIP 低不少。除此之外，它还支持一�
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.65\textwidth]{assets/software/7-Zip.png}
+  \includegraphics[width=.62\textwidth]{assets/software/7-Zip.png}
   \caption{7-Zip}
   \label{fig:7-Zip}
 \end{figure}
 
 7-Zip 的官方下载地址是 \url{https://www.7-zip.org/}。如果访问这个链接有困难，可以选择 \url{https://sparanoid.com/lab/7z/}。
 
-由于 7-Zip 的界面复古，且不支持 Windows 11 的新式右键菜单（参见\chapref{cha:windows-11-optimization}），一些有志之士在 7-Zip 的基础上开发了 NanaZip。相比 7-Zip，NanaZip 界面简洁而现代化，并且支持 Windows 11 新式右键菜单。下面是 NanaZip 的界面。
+由于 7-Zip 界面复古，且不支持 Windows 11 的新式右键菜单（参见\chapref{cha:windows-11-optimization}），一些有志之士在 7-Zip 的基础上开发了 NanaZip。相比 7-Zip，NanaZip 界面简洁而现代化，并且支持 Windows 11 新式右键菜单。下面是 NanaZip 的界面。
 
 \begin{figure}[htb!]
   \centering
@@ -250,7 +250,7 @@ Bandizip的主界面大致如下图所示。可以看见，它的界面较为简
 \begin{figure}[htb!]
   \centering
   \includegraphics[width=.45\textwidth]{assets/software/Bandizip_popup.png}
-  \caption{Bandizip}
+  \caption{Bandizip 免费版的弹窗广告}
   \label{fig:Bandizip_popup}
 \end{figure}
 
