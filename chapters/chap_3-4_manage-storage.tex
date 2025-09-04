@@ -128,7 +128,7 @@
 
 \subsection{分区中数据的存放}
 
-我们把整个硬盘想象成一个条带，分区则是将条带划分成了几个部分，每个部分都有自己的起始位置与终止位置。在每个分区内，我们可以认为数据是向前堆码的，也就是说，在每个分区内，数据都堆在前方，而可用空间在后方。
+我们把整个硬盘想象成一个条带，分区则是将条带划分成了几个部分，每个部分都有自己的起始位置与终止位置。在每个分区内，我们可以认为数据大致是靠前堆放的，也就是说，在每个分区内，数据都堆在前方，而可用空间在后方。
 
 \begin{figure}[htb!]
   \centering
@@ -137,18 +137,40 @@
   \label{fig:Disk_partitions}
 \end{figure}
 
-这种结构决定了分区可以在尾部无损进行空间调节。例如，我们可以在一个分区尾部「切」出一个新的分区（请参见\chapref{cha:new-laptop-setup}），也可以删除一个分区并把它的空间合并给前一个分区。这些操作都可以使用 Windows 自带的「磁盘管理」工具来完成。
+这种结构决定了分区可以在尾部无损进行空间调节。例如，我们可以在一个分区尾部「切」出一个新的分区，也可以删除一个分区并把它的空间合并给前一个分区。这些操作都可以使用 Windows 自带的「磁盘管理」工具来完成，你可以参阅\chapref{cha:new-laptop-setup}一章，或在网上搜索「压缩卷」「扩展卷」等关键词。
 
 然而，如果我们想把一个分区的空间挪给另一个分区，问题就会变得复杂起来。在上面的例子中，如果我们想把 E 盘的一部分空间转移到 D 盘，我们得先把 E 盘的数据向后移动一段距离，这样才能给 D 盘留出向后扩展的空间。
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.85\textwidth]{assets/advanced/Move_space_from_partition_to_partition.pdf}
+  \includegraphics[width=.7\textwidth]{assets/advanced/Move_space_from_partition_to_partition.pdf}
   \caption{在分区之间转移空间}
   \label{fig:Move_space_from_partition_to_partition}
 \end{figure}
 
 如果我们需要把 E 盘的空间转移给 C 盘，就需要更复杂的数据移动，逐级将可利用的空闲空间向前转移。Windows 自带的磁盘管理无法进行这些复杂的操作，所以我们需要借助一些第三方工具来完成这个任务。下面我们隆重介绍 DiskGenius。
+
+\begin{warning}
+  Windows 的磁盘管理工具只能在分区末尾操作，像上图这样的分区结构，想利用 E 盘的尾部空间来扩容 D 盘它就无能为力。但是，非系统盘（即不含 C 盘的硬盘）上的分区仍然可以使用【扩展卷】操作，似乎可以实现「跨越分区扩容」，可代价是把硬盘变成「动态磁盘」。就像下图中的情况一样，用户想把硬盘最后的剩余空间合并给 E 盘，便直接在 E 盘上点【扩展卷】（\regcolor{错误操作，请勿模仿！！！}），磁盘管理则弹出了提示：
+
+  \begin{center}
+    \includegraphics[width=.8\textwidth]{assets/advanced/Converting_to_Dynamic_Disk.png}
+    \captionof{figure}{Windows 提示需要转换成动态磁盘}
+    \label{fig:Converting_to_Dynamic_Disk}
+  \end{center}
+
+  点【是】，就变成了这样：
+
+  \begin{center}
+    \includegraphics[width=.8\textwidth]{assets/advanced/Dynamic_Disk.png}
+    \captionof{figure}{变成动态磁盘的硬盘}
+    \label{fig:Dynamic_Disk}
+  \end{center}
+
+  \regcolor{虽然动态磁盘能把硬盘上两块隔开的区域当成一个分区使用，但它存在大量兼容问题，已被弃用。}更严重的问题是，磁盘管理能随意把硬盘变成动态磁盘，但还原回去则需要格式化\CJKsout*{（垃圾微软，不留后路）}。想要直接还原成普通磁盘，得靠 DiskGenius 专业版或「傲梅分区助手」\footnotemark 这样的第三方工具，\regcolor{然而这一操作的风险极高，若在系统盘上操作，很可能让 Windows 无法启动}。
+\end{warning}
+
+\footnotetext{可以在 \url{https://www.disktool.cn/} 下载到。}
 
 \subsection{用 DiskGenius 进行高级分区调整}
 
@@ -158,12 +180,27 @@ DiskGenius 是一款多功能磁盘管理软件，可以进行自由分区、磁
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.7\textwidth]{assets/advanced/DiskGenius.png}
+  \includegraphics[width=.65\textwidth]{assets/advanced/DiskGenius.png}
   \caption{DiskGenius}
   \label{fig:DiskGenius}
 \end{figure}
 
-打开 DiskGenius，你电脑上所有的磁盘信息均会映入眼帘：左侧是你所有磁盘与分区的列表，上方有当前磁盘的使用情况，中间一大块则是选中分区的信息。想要操作某个分区，就再上方选中那个分区，点击右键即可。
+打开 DiskGenius，你电脑上所有的磁盘信息均会映入眼帘：左侧是你所有磁盘与分区的列表，上方有当前磁盘的使用情况，中间一大块则是选中分区的信息。你可能会注意到，系统盘附近会有一些没有盘符、平时也看不到的小小分区。既然这些分区默认隐藏，那想必它们有特殊的作用，系统不允许一般用户随意接触。在上图所示的分区情况中：
+
+\begin{itemize}
+  \item 第一个分区显示为「ESP」，它是「EFI 系统分区」（EFI\footnote{那么 EFI 又是什么呢？你可以自行上网搜索。} system partition）的简称。简而言之，这个分区提供启动操作系统的信息，让你的电脑知道该在哪启动 Windows。
+  \item 第二个分区显示为「MSR」，它是「微软保留分区」（Microsoft Reserved Partition）的简称，用来为曾经的老式分区结构提供兼容支持。此分区如果存在，则必须位于操作系统分区之前。
+  \item 接下来 3 个分区分别是 C 盘、D 盘和 E 盘这些普通分区，也是我们可以调整空间的分区。
+  \item 最后一个分区是「恢复分区」。Windows 出问题时的「启动修复」「系统还原」「映像恢复」等功能都依赖它。
+\end{itemize}
+
+\regcolor{ESP 和 MSR 是 Windows 系统中极其重要的分区，只要存在，就千万、一定、绝对不要误操作把它们随意移动，甚至删除了！}此外，虽然删除恢复分区不影响 Windows 正常运行，但我们同样完全不建议删除它。
+
+\begin{note}
+  在磁盘管理工具中，ESP 和恢复分区通常也能看到，但没有盘符、不可操作；MSR 则隐藏起来了。
+\end{note}
+
+想要操作某个分区，就再上方选中那个分区，点击右键即可。
 
 \begin{figure}[htb!]
   \centering
@@ -172,10 +209,9 @@ DiskGenius 是一款多功能磁盘管理软件，可以进行自由分区、磁
   \label{fig:Part_Operation}
 \end{figure}
 
-现在我们的分区结构是：C 盘、D 盘（一个很小的分区）、以及一片 30 GB 的空闲空间。现在，让我们来尝试将之前那磁盘尾部的 30 GB 空间分给在中间的 C 盘。
-为了实现这样的操作，我们需要将 D 盘数据后移，把空闲空间移到 C 盘后面，再将 C 盘向后扩大。
+现在我们的分区结构是：C 盘（约 200 GB）、D 盘（约 160 GB）和 E 盘（约 160 GB）。下面，让我们来尝试在 E 盘切出 40 GB，然后让它跨过\CJKsout{山和大海} D 盘和 E 盘，分配给 C 盘。前文中提到，为了实现这样的操作，我们需要将 D 盘和 E 盘的数据后移，把空闲空间移到 C 盘后面，再将 C 盘向后扩大。
 
-右击空闲区域之前的那一个小分区，选择【调整分区大小】，接着，软件会弹出这样的界面：
+我们的第一个任务是在 E 盘切出空闲空间。那么，右击 E 盘，选择【调整分区大小】。接着，软件会弹出这样的界面：
 
 \begin{figure}[htb!]
   \centering
@@ -186,7 +222,16 @@ DiskGenius 是一款多功能磁盘管理软件，可以进行自由分区、磁
 
 上方的条条是选中的分区与它周围空闲空间的情况，下面是此次调整的详细参数。你可以选择在上面的条条中直接操作，也可以选择在底下的参数中做精细调整。如果你要删除某个分区，记得先把里面的所有文件移出来或做备份。
 
-但这次我们的任务只是想把这个小分区移到末尾去，直接在上方条条中将这个小分区拖到末尾即可（注意鼠标光标的形状，别把分区拉大了）。如果想要指定分区的容量，最好还是在底下的参数中直接输入你想要的数值。
+虽然前文提到，这种操作只能在分区尾部完成，但 DiskGenius 却提供了「在分区前部切出空闲空间」的功能——其实，它的本质仍然是「先在尾部操作，再将数据后移」罢了。为了实现这一操作，我们按住蓝色条条的左端，向右拖动，拖出合适大小的空闲空间即可。如果要精确指定分区的容量，可以在底下「分区前部的空间」参数中直接输入你想要的数值。
+
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[width=.5\textwidth]{assets/advanced/Drag_Size.png}
+  \caption{拖出空闲空间}
+  \label{fig:Drag_Size}
+\end{figure}
+
+接下来，有了空闲空间，我们就可以将它跨过多个分区，直接合并给 C 盘了。很巧，DiskGenius 正好提供了跨分区空间便捷合并的功能——软件会自动帮助我们实现数据的后移，不再需要我们手动去一个个挪动分区的位置。点击「分区前部的空间」右侧下拉框，在这里选择【合并到 本地磁盘(C:)】，然后点击【开始】，点两下【是】。
 
 \begin{figure}[htb!]
   \centering
@@ -195,7 +240,7 @@ DiskGenius 是一款多功能磁盘管理软件，可以进行自由分区、磁
   \label{fig:Merge_To_C}
 \end{figure}
 
-拖过去之后，下方「分区前部的空间」右侧下拉框就有用了，在这里选择【合并到 本地磁盘(C:)】，然后点击【开始】，点两下【是】。\regcolor{由于我们在操作 C 盘，DiskGenius 会弹出「需要重启到 Windows PE」的警告}，请仔细阅读警告，按其行事，然后再点【确定】，软件将开始工作。这段时间你可以喝杯茶，看看电脑上还有没有【确定】要点。一切顺利的话，电脑重启完毕后，你就能看到一个更大的 C 盘了！
+点击【开始】，然后点两下【是】。DiskGenius 会给你列出它将进行的操作清单，其中就有「向后移动某个分区」之类的操作。\regcolor{由于我们在操作 C 盘，DiskGenius 会弹出「需要重启到 Windows PE」的警告}，请仔细阅读警告，按其行事，然后再点【确定】，软件将开始工作。这段时间你可以喝杯茶，看看电脑上还有没有【确定】要点。一切顺利的话，电脑重启完毕后，你就能看到一个更大的 C 盘了！
 
 \begin{figure}[htb!]
   \centering
@@ -205,10 +250,10 @@ DiskGenius 是一款多功能磁盘管理软件，可以进行自由分区、磁
 \end{figure}
 
 \begin{note}
-  \regcolor{正常来说，进行分区调整是不需要重新启动的}，这个例子中重启的原因是我们调整的范围涉及到 C 盘，而 C 盘上 Windows 操作系统本身正在运行，所以需要重启到一个独立的临时系统环境（即 Windows PE）中进行操作。
+  \regcolor{正常来说，进行分区调整是不需要重新启动的}，这个例子中重启的原因是我们调整的范围涉及到系统分区——C 盘，而 C 盘上 Windows 操作系统本身正在运行，所以需要重启到一个独立的临时系统环境（即 Windows PE）中进行操作。
 \end{note}
 
-以上就是 DiskGenius 分区管理的基本使用方法。不同于只能调整分区尾部的「磁盘管理」工具，DiskGenius 不仅可以将分区向前、向后扩大或缩小，还可以移动分区在整个磁盘中的位置，是一个非常强大的磁盘管理工具。
+以上就是 DiskGenius 分区管理的基本使用方法。不同于只能调整分区尾部的「磁盘管理」工具，DiskGenius 不仅可以将分区向前、向后扩大或缩小，还可以便捷地跨过多个分区直接合并空间，是一个非常强大的磁盘管理工具。
 
 \section{拯救「红盘」的其他方法}
 
@@ -260,9 +305,9 @@ DiskGenius 是一款多功能磁盘管理软件，可以进行自由分区、磁
 
 \subsection{暗度陈仓 *}
 
-怎么个「暗度陈仓」法？如果我们可以把文件/文件夹的本体移到别处有空的位置，但在原位置放上一个「链接」，让软件们都会认为这里还留着原本的文件/文件夹而照用不误，就可以在一定程度上缓解空间紧张问题了。Windows 提供的「符号链接」功能就可以帮我们实现这个目的。
+怎么个「暗度陈仓」法？如果我们可以把文件/文件夹的本体移到别处有空的位置，但在原位置放上一个「链接」，让软件们都会认为这里还留着原本的文件/文件夹，照用不误，就可以在一定程度上缓解空间紧张问题了。Windows 提供的「符号链接」功能就可以帮我们实现这个目的。
 
-符号链接可以简单地理解为一个虚拟的文件/文件夹，它指向了一个真实的文件/文件夹。例如，我可以在 \MissingVerb{C:\Missing} 下建立一个指向 \MissingVerb{D:\Chatpers} 的符号链接 \MissingVerb{C:\Missing\Chapters}。这样，对于几乎所有应用程序来说，访问 \MissingVerb{C:\Missing\Chapters} 就相当于在访问 \MissingVerb{D:\Chatpers}，程序可以在其中读写文件，但实际上文件存放在 D 盘中。这样，我们就可以把一些大文件/文件夹移到其他分区，再在原位置建立符号链接，从而释放 C 盘空间。
+符号链接可以简单地理解为一个虚拟的文件/文件夹，它指向了一个真实的文件/文件夹，有点像快捷方式的高级版。例如，我可以在 \MissingVerb{C:\Missing} 下建立一个指向 \MissingVerb{D:\Chatpers} 的符号链接 \MissingVerb{C:\} \MissingVerb{Missing\Chapters}。这样，对于几乎所有应用程序来说，访问 \MissingVerb{C:\Missing\Chapters} 就相当于在访问 \MissingVerb{D:\Chatpers}，程序可以在其中读写文件，但实际上文件存放在 D 盘中。这样，我们就可以把一些大文件/文件夹移到其他分区，再在原位置建立符号链接，从而释放 C 盘空间。
 
 众所周知，C 盘里的文件大都是重要的系统文件，不能轻易移动。所以\regcolor{这个办法是走投无路的选项之一}，除非你非常理解你在做什么。不过说是「不能轻易移动」，但其实有一些文件夹还是可以动的。完全不能移动的有：
 
@@ -310,28 +355,31 @@ mklink /d "%localappdata%\Programs\Common\Wolfram Research\Documentation.zh-Hans
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.6\textwidth]{assets/advanced/Configure_System_Migration.png}
+  \includegraphics[width=.65\textwidth]{assets/advanced/Configure_System_Migration.png}
   \caption{配置系统迁移}
   \label{fig:Configure_System_Migration}
 \end{figure}
 
-如\autoref{fig:Configure_System_Migration} 和\autoref{fig:Select_Migrating_Partition} 所示，点击中间右侧的【分区管理】，在弹出的窗口中点击【添加分区】，选择你需要的分区，点【确定】即可添加。
-
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.6\textwidth]{assets/advanced/Select_Migrating_Partition.png}
+  \includegraphics[width=.56\textwidth]{assets/advanced/Select_Migrating_Partition.png}
   \caption{选择要迁移的分区}
   \label{fig:Select_Migrating_Partition}
 \end{figure}
 
-回到刚才的窗口，勾选【完成后，更改电脑启动顺序】，点击【开始】，软件将会询问你想采用的执行方式，可以选择【热迁移】，它会立即开始迁移工作，不过我们不建议这时还运行别的程序。这时你可以喝杯茶，等待软件完成工作，然后重启电脑。重启之后，你会发现现在的系统已经位于刚刚换上来的那块硬盘了，而原来的硬盘你可以选择格式化，让它来做点别的事情。
+如\autoref{fig:Configure_System_Migration} 和\autoref{fig:Select_Migrating_Partition} 所示，点击中间右侧的【分区管理】，在弹出的窗口中点击【添加分区】，选择你需要的分区，点【确定】即可添加。
 
-\begin{figure}[htb!]
-  \centering
-  \includegraphics[width=.75\textwidth]{assets/advanced/Migration_Result.png}
-  \caption{迁移结果}
-  \label{fig:Migration_Result}
-\end{figure}
+回到刚才的窗口，勾选【完成后，更改电脑启动顺序】，点击【开始】，软件将会询问你想采用的执行方式，可以选择【热迁移】，它会立即开始迁移工作，不过我们不建议这时还运行别的程序。这时你可以喝杯茶，等待软件完成工作，然后关机。关机之后，将旧硬盘拔下来，再次打开电脑，如果能够正常启动，就说明系统已经正确迁移到你的新硬盘上了！而原来的硬盘建议直接格式化，让它来做点别的事情。
+
+\begin{warning}
+  没有及时格式化原来的硬盘（比如一直保持下面这样）可能会带来一些风险：由于原来的硬盘也有一个完整的启动体系，在极端情况下可能会出现「系统从原来的硬盘启动」，甚至「一块硬盘的 EFI 分区指示电脑去启动另一块硬盘的系统」之类的怪事。
+
+  \begin{center}
+    \includegraphics[width=.75\textwidth]{assets/advanced/Migration_Result.png}
+    \captionof{figure}{迁移结果（还未格式化原来的硬盘）}
+    \label{fig:Migration_Result}
+  \end{center}
+\end{warning}
 
 \section{到底什么是文件链接 *}
 
@@ -386,7 +434,7 @@ mklink /d "%localappdata%\Programs\Common\Wolfram Research\Documentation.zh-Hans
     这种方式对文件与文件夹都有效，但 PowerShell 无法识别 \MissingVerb{%appdata%} 这样的环境变量。同样，带空格的路径记得打上双引号。
 \end{enumerate}
 
-看上去 \MissingVerb{New-Item} 可以用一个命令搞定文件与文件夹，挺通用，但目前它有一个重大问题——无法处理带西文方括号（「\MissingVerb{[}」和「\MissingVerb{]}」）的路径。所以\regcolor{如果有路径包含了西文方括号，请使用 \MissingTT{mklink}}。如果提示什么「权限不足」之类的信息，请用管理员权限再试一次。
+看上去 \MissingVerb{New-Item} 可以用一个命令搞定文件与文件夹，挺通用，但旧版的 PowerShell 它有一个重大问题——无法处理带西文方括号（「\MissingVerb{[}」和「\MissingVerb{]}」）的路径。所以\regcolor{如果你不能确定你的 PowerShell 能不能正确处理西文方括号，请使用 \MissingTT{mklink}}。\footnote{你可以执行 \MissingTT{ni [} 命令来快速判别。如果这条命令能创建一个名为 \MissingTT{[} 的文件，那就说明你的 PowerShell 能正确处理西文方括号，反之不能。}如果提示什么「权限不足」之类的信息，请用管理员权限再试一次。
 
 实际上，在创建符号链接的时候，不需要让两者的名称一致，例如你可以创建一个名为 \MissingVerb{大物教程} 的链接，但它指向你的 \MissingVerb{高数秘籍.txt}。然而，若是这样做，虽然文件资源管理器知道它指向的是个什么东西，也知道用什么软件来打开目标，但其他应用可就不一定了。故我们\regcolor{推荐创建链接时使用与目标完全一致的名称}。
 
@@ -426,7 +474,7 @@ mklink /d "%localappdata%\Programs\Common\Wolfram Research\Documentation.zh-Hans
     \begin{MissingVerbatim}[pwsh]
       ni <链接所在路径> -i HardLink -ta <本体所在路径>
     \end{MissingVerbatim}
-    它对文件与文件夹都有效，但也无法处理带西文方括号的路径，无法识别环境变量。当然，带空格的路径记得打上双引号。
+    它对文件与文件夹都有效，但也无法识别环境变量，旧版也无法处理带西文方括号的路径。当然，带空格的路径记得打上双引号。
 \end{enumerate}
 
 按照硬链接的行为，\regcolor{无论一份数据有多少硬链接，磁盘上都应该只有一份文件的数据，只占一份文件的空间}。事实的确如此，但文件资源管理器不这么想——有多少链接，它就给你算多少份文件大小，于是乎，就有了这样占用空间比整个硬盘还大的奇景：
@@ -442,9 +490,13 @@ mklink /d "%localappdata%\Programs\Common\Wolfram Research\Documentation.zh-Hans
 
 如果你看到过 \MissingVerb{mklink} 的语法说明（没看到的可以现在看看，执行 \MissingVerb{mklink} 就行），你可能会发现在指定链接类型时，除了指定文件夹的 \MissingVerb{/d} 与指定硬链接的 \MissingVerb{/h} 选项以外，居然还有一个 \MissingVerb{/j} 选项，按底下的说明，它是「目录联接」。
 
+\begin{note}
+  当然，PowerShell 也可以创建目录联接，只是类型参数从 \MissingVerb{SymbolicLink} 什么的变成了 \MissingVerb{Junction}。
+\end{note}
+
 目录联接其实类似于文件夹符号链接，要是只用在自己电脑的文件上，那就没什么两样，但要是通过网络访问其他电脑上的文件，那就有差别了。
 
-假定有 Reimu 和 Marisa 两台电脑，二者之间通过网络共享数据，即它们的路径分别为 \MissingVerb{\\Reimu} 与 \MissingVerb{\\Marisa}。Reimu 有一个文件夹，本地路径是 \MissingVerb{C:\Folder}，除此之外还有一个文件夹符号链接 \MissingVerb{C:\SymLink} 与一个目录联接 \MissingVerb{C:\Junc}，它们均指向 \MissingVerb{C:\Folder}。现在 Marisa 要通过网络来访问这个符号链接与目录联接，则 Reimu 那边的目录联接对 Marisa 来说的路径是 \MissingVerb{\\Reimu\C$\Junc}，指向了 \MissingVerb{\\Reimu\C$\Folder}——正确的位置；但是，符号链接的路径是 \MissingVerb{\\Reimu\C$\SymLink}，却指向了 \MissingVerb{\\Marisa\C$\Folder}——Marisa 自己这边的位置！
+假定有 Reimu 和 Marisa 两台电脑，二者之间通过网络共享数据，即它们的网络路径分别为 \MissingVerb{\\Reimu} 与 \MissingVerb{\\Marisa}。Reimu 有一个文件夹，本地路径是 \MissingVerb{C:\Folder}，除此之外还有一个文件夹符号链接 \MissingVerb{C:\SymLink} 与一个目录联接 \MissingVerb{C:\Junc}，它们均指向 \MissingVerb{C:\Folder}。现在 Marisa 要通过网络来访问 Reimu 那边的符号链接与目录联接，则那边的目录联接对 Marisa 来说的路径是 \MissingVerb{\\Reimu\C$\Junc}，指向了 \MissingVerb{\\Reimu\C$\Folder}——正确的位置；但是，那边的符号链接的路径是 \MissingVerb{\\Reimu\C$\SymLink}，却指向了 \MissingVerb{\\Marisa\C$\Folder}——Marisa 自己这边的位置！
 
 这告诉我们，符号链接并不会循着网络位置来寻找目标，而只是在本地寻找。故若需要为网络访问为目的制作链接，请使用目录联接。
 

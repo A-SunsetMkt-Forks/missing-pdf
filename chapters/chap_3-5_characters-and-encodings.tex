@@ -241,11 +241,11 @@ ASCII 使用 7 位二进制数来编码字符，可以表示的数据范围是 0
 
 将 7 位的 ASCII 移植到 8 位几乎不费吹灰之力——只需在前面加个 0 即可。然而，自 20 世纪 80 年代以来，伴随着科技革命的浪潮，计算机迅速普及到世界的各个角落。而与此同时，一个新的难题也随之而来：不同语言的文字需求。
 
-比如，法语有「é」，德语有「üß」，俄语有「иящ」，日语有「あいう」，汉语则有「天地人」……每个国家和地区都希望能够在计算机上显示和处理自己的文字。然而，一个字节只有 256 个空位。对于法语、德语等语言，所需的额外字符数量有限，还可以勉强（和 ASCII 一起）挤入这 256 个空位之中。但像中文这样的语言，其字符数量动辄成千上万，256 个位置显然不足。如何让不同的文字都能在计算机中有「一席之地」呢？
+比如，法语有「é」，德语有「üß」，俄语有「иящ」，日语有「あいう」，汉语则有「天地人」……每个国家和地区都希望能够在计算机上显示和处理自己的文字。然而，一个字节只有 256 个空位，对于法语、德语等语言，它们所需的额外字符数量有限，还可以勉强挤入这 256 个空位之中；但像中文这样的语言，其字符数量动辄成千上万，256 个空位显然不足，必然需要用更多的字节来存储。不同语言的字符数量和形态天差地别，如何让不同的文字都能在计算机中有「一席之地」呢？
 
-一个简单的想法是，把大伙用到的字符全收集起来，然后统一编码即可。可惜想法很美好，技术与钱包不同意。1985 年，普通个人电脑的硬盘大约只有 10 MB 的容量，却要花高达 250 美元才能买到，寸土寸金的硬盘空间让人们只能寻求替代方案。为了解决这些问题，IBM 与微软一起，在 DOS 3.3 版本时推出了全新的全球化功能——代码页（code page）。
+一个简单的想法是，把大伙用到的字符全收集起来，然后用多个字节统一编码即可。可惜想法很美好，技术与钱包不同意：1985 年，普通个人电脑的硬盘大约只有 10 MB 的容量，却要花高达 250 美元才能买到，寸土寸金的硬盘空间让人们只能寻求替代方案。为了解决这些问题，IBM 与微软一起，在 DOS 3.3 版本时推出了全新的全球化功能——代码页（code page）。
 
-代码页的思想是：\regcolor{对每种不同的文字系统使用不同的编码方式，并为每种编码方式赋予一个数字代号，称为「代码页」。}只要知道一段内容使用的代码页，就知道它是哪种语言、使用什么编码方式。IBM 与微软主要负责为各种文字系统指定代号，而为文字编码，则交给各个国家与地区的机构完成。下表是最初的部分代码页/语言/编码规范对应表。
+代码页核心的思想是：\regcolor{对每种不同的文字系统使用不同的编码方式，并为每种编码方式赋予一个数字代号，称为「代码页」。}只要知道一段内容使用的代码页，就知道它是哪种语言、使用什么编码方式。IBM 与微软主要负责为各种文字系统指定代号，而为文字编码，则交给各个国家与地区的机构完成。下表是最初的部分代码页/语言/编码规范对应表。
 
 \begin{table}[htb!]
   \centering
@@ -273,13 +273,13 @@ ASCII 使用 7 位二进制数来编码字符，可以表示的数据范围是 0
 \footnotetext[2]{虽然 819 和 1252 是不一样的代码页，但网页显示会把 819 视作 1252 来解析。}
 \footnotetext{又称 Shift-JIS。}
 
-这样，世界各地的计算机可以通过代码页来确定应采用的编码规范。例如，对于英语内容，它们使用代码页 38，并通过 ASCII 解码；而对于简体中文内容，则采用代码页 936，对应国家标准《GB/T 2312-1980 信息交换用汉字编码字符集 基本集》（简称「GB2312」）。由于每个地区的计算机通常只需处理本地语言内容，操作系统会设置一个「默认代码页」。当内容未明确标注其代码页时，系统会默认使用该默认代码页进行解码。
+这样，世界各地的计算机可以通过代码页来确定应采用的编码规范。例如，对于英语内容，它们使用代码页 38，并通过 ASCII 解码；而对于简体中文内容，则采用代码页 936，对应国家标准《GB/T 2312-1980 信息交换用汉字编码字符集 基本集》（简称「GB2312」）这套编码。相较于为所有语言统一编码，代码页则要求为每段内容明确指定其编码，令计算机能够自动切换解码方式以正确读取。由于每个地区的计算机通常只需处理本地语言内容，操作系统会设置一个「默认代码页」。当内容未明确标注其代码页时，系统会默认使用该默认代码页进行解码。
 
 我们再来看 GB2312 编码。它最初发布于 1980 年，为了解决「一个字节放不下的问题」，GB2312 采用了「双字节编码」——使用两个字节来表示字符。它收录了 6763 个最常用的汉字，同时额外收录了希腊字母、西里尔字母、注音符号、日文假名等内容。GB2312 将所有的字符编入 94 个「区」，每个区中又有 94「位」，这样总共$94 \times 94 = 8836$个位置——或者说「码位」，足够容纳下这么多字符了。整个标准中，1\textasciitilde9 区放字母与符号，16\textasciitilde87 区放汉字，剩下的没用到。下图展示了第 16 区容纳的内容。
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.8\textwidth]{assets/advanced/GB2312.png}
+  \includegraphics[width=.75\textwidth]{assets/advanced/GB2312.png}
   \caption{GB2312 的第 16 区}
   \label{fig:GB2312-block-16}
 \end{figure}
@@ -452,7 +452,7 @@ Unicode 的第 0 平面叫「基本多文种平面」，又称「基本区」，
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.5\textwidth]{assets/advanced/UnicodeEncoding.pdf}
+  \includegraphics[width=.45\textwidth]{assets/advanced/UnicodeEncoding.pdf}
   \caption{直接用字符码造成的歧义}
   \label{fig:UnicodeEncoding}
 \end{figure}
@@ -461,7 +461,7 @@ Unicode 的第 0 平面叫「基本多文种平面」，又称「基本区」，
 
 另一种编码方案源自早期 Unicode 设想中的「宽体 ASCII」方案，使用 16 位二进制码来编码，这就是 UTF-16。对于基本区的字符，它们的字符码在 \MissingTT{U+0000} 至 \MissingTT{U+FFFF}，刚好可以直接写进 16 位，例如「U 盘」一词的 UTF-16 编码就是 \MissingTT{00 55 76 D8}。但剩下的平面，16 位二进制不够用，怎么办呢？这就是 UTF-16 代理区的用武之地了。
 
-UTF-16 代理区占据了 \MissingTT{U+D800}\textasciitilde\MissingTT{U+DFFF} 的区域，一共 2048 个码位，其中 \MissingTT{U+D800}\textasciitilde\MissingTT{U+DBFF} 的 1024 个是「高位代理」，剩下 1024 个是「低位代理」，这些都是虚拟字符。不在基本区的字符，将它的字符码拆成高、低两截，利用高位、低位代理字符各一个组成一个「代理对」，以两个 2 字节「代理」原本的字符。以「俨骖𬴂于上路，访风景于崇阿。」\footnote{出自唐代文学家王勃的《滕王阁序》。}中的 \MissingTT{U+2CD02}{}「𬴂」为例，我们来看看代理对是如何工作的。
+UTF-16 代理区占据了 \MissingTT{U+D800}\textasciitilde\MissingTT{U+DFFF} 的区域，一共 2048 个码位，其中 \MissingTT{U+D800}\textasciitilde\MissingTT{U+DBFF} 的 1024 个是「高位代理」，剩下 1024 个是「低位代理」，这些都是虚拟字符。不在基本区的字符，将它的字符码拆成高、低两截，利用高位、低位代理字符各一个组成一个「代理对」，以两个 2 字节「代理」原本的字符。以「俨骖𬴂于上路，访风景于崇阿。」\footnote{出自唐代文学家王勃的《滕王阁序》。}中的 \MissingTT{U+2CD02}\phantom{（}\hspace{-.5em}「𬴂」为例，我们来看看代理对是如何工作的。
 
 稍微看一看高位代理的码位范围，不难发现，如果利用二进制表示，高位代理会长下面这个样子，其中 \MissingTT{X} 是可变的位置。
 \begin{MissingVerbatim}
@@ -485,13 +485,13 @@ UTF-16 代理区占据了 \MissingTT{U+D800}\textasciitilde\MissingTT{U+DFFF} �
   \label{fig:UTF16}
 \end{figure}
 
-于是 \MissingVerb{U+2CD02}\relax{}「𬴂」的 UTF-16 编码就是 \MissingTT{D8 73 DD 02}。
+于是 \MissingTT{U+2CD02}\phantom{（}\hspace{-.5em}「𬴂」的 UTF-16 编码就是 \MissingTT{D8 73 DD 02}。
 
 \begin{note}
   UTF-16 代理区的字符只有「一高一低」的序列才是有效的，其他情况都不行，实际解析出来大概率会是「\replacesymb」。
 \end{note}
 
-一个代理字符有 10 位二进制的可变位，所以利用代理对可以表示的字符总共有$2^{20} = 1\,048\,576 = 100000_{\mathrm{H}}$个。再加上无需代理的基本区的 10000ʜ（= 65536）个，正好是 Unicode 字符集的 110000ʜ 个码位。而 20 位二进制数，代表的数值范围是 0ʜ\textasciitilde{}FFFFFʜ，对应着不属于基本区的 \MissingTT{U+10000}\textasciitilde\MissingTT{U+10FFFF}，这就是为什么代理对表示法的第一步是「减去 10000ʜ」。同时这也是为什么 Unicode 字符集一共 110000ʜ 个码位——正是为了兼容 UTF-16 作出的限制。
+一个代理字符有 10 位二进制的可变位，所以利用代理对可以表示的字符总共有$2^{20} = 1\,048\,576 = 100000_{\mathrm{H}}$个。再加上无需代理的基本区的 10000ʜ（= 65536）个，正好是 Unicode 字符集的 110000ʜ 个码位。而 20 位二进制数，代表的数值范围是 0ʜ\textasciitilde{}FFFFFʜ，对应着不属于基本区的 \MissingTT{U+10000}\textasciitilde{} \MissingTT{U+10FFFF}，这就是为什么代理对表示法的第一步是「减去 10000ʜ」。同时这也是为什么 Unicode 字符集一共 110000ʜ 个码位——正是为了兼容 UTF-16 作出的限制。
 
 相比于 UTF-32，UTF-16 的编码长度要短许多，对基本区的常用字符能省下一半的空间。即便是存储不再寸土寸金的今天，省下一半的空间也意味着巨大的优势。如今的 Windows 系统内部与 Java 编程语言都在使用 UTF-16 作为 Unicode 文本编码。但是 \regcolor{UTF-16 也有弊端：它不兼容 ASCII}。有没有一种既能表示 Unicode 这么多字符，又兼容 ASCII 的编码呢？还真有，而且是一个颇具想象力的方案。
 
@@ -657,7 +657,7 @@ UTF-8 是一种彻彻底底的变长编码方案，它的单字符编码码长�
 
 \subsection{恼人的乱码}
 
-「乱码」这个东西，想必你多多少少都见过。无论是打开一个文本文件时里面充斥着的「\replacesymb\replacesymb{}ȱʧ\replacesymb\replacesymb\replacesymb\replacesymb{} \replacesymb{}ż\replacesymb\replacesymb\replacesymb\replacesymb\replacesymb\replacesymb」，还是在游玩某些舶来游戏时看到的「婱曽偺寚偗偰偄傞僐儞僺儏乕僞偺庼嬈」，又或者是打开网页时看到了下图这样的情况……这些都是乱码。
+「乱码」这个东西，想必你多多少少都见过。无论是打开一个文本文件时里面充斥着的「\replacesymb\replacesymb{}ȱʧ\replacesymb \replacesymb\replacesymb\replacesymb{}\replacesymb{}ż\replacesymb\replacesymb\replacesymb\replacesymb\replacesymb\replacesymb」，还是在游玩某些舶来游戏时看到的「婱曽偺寚偗偰偄傞僐儞僺儏乕僞偺庼嬈」，又或者是打开网页时看到了下图这样的情况……这些都是乱码。
 
 \begin{figure}[htb!]
   \centering
@@ -727,6 +727,10 @@ UTF-8 是一种彻彻底底的变长编码方案，它的单字符编码码长�
 
 于是有一天，你拿到了不知道从哪里飘洋过海而来的一份文本，满心欢喜地用记事本打开它，迎接你的却是一堆看不懂的乱码——操作系统用「你的 ANSI」去解析本来用「别人的 ANSI」保存的文件，那自然而然就会是乱码啦。
 
+\begin{note}
+  常用的压缩格式 ZIP，因为不储存编码，也可能遭遇一样的问题。若你想避免在压缩文件传输中出现乱码，请选用我们在\chapref{cha:archive-formats-and-tools}中介绍的其他压缩格式。
+\end{note}
+
 \subsection{拯救乱码，更要预防乱码}
 
 所以现在你手头那份飘洋过海而来的文本显然不能直接打开来看了，还是先把它关掉，不要动它，再来思考：「有没有什么办法能够正常阅读它呢？」稍微想一想，既然乱码的成因是使用错误的编码体系读取了文本，那么我们只要用当初编码这份文本的编码体系去解码，不就好了吗？然而，这就意味着我们得猜测文本的正确编码方式。
@@ -736,7 +740,6 @@ UTF-8 是一种彻彻底底的变长编码方案，它的单字符编码码长�
 \footnotetext[7]{出自宋代诗人邵雍的《山村咏怀》。}
 \footnotetext[8]{出自唐代诗人常建的《题破山寺后禅院》。}
 \footnotetext[9]{出自唐代诗人刘禹锡的《陋室铭》。}
-\footnotetext[10]{出自日本古代文学著作《平家物语》，大意：祇园精舍钟声响，诉说世事本无常（周作人、申非译，人民文学出版社 1984 年版）。}
 
 \begin{longtblr}[
     caption   = {UTF-8 与 GB18030 解码别的编码文本},
@@ -753,16 +756,17 @@ UTF-8 是一种彻彻底底的变长编码方案，它的单字符编码码长�
   \midrule
   GB18030 & 一去二三里，烟村四五家。\footnotemark & \clearglue{}һȥ\replacesymb{}\replacesymb{}\replacesymb{}\replacesymb{}\replacesymb{}\replacesymb{}̴\replacesymb{}\replacesymb{}\replacesymb{}\replacesymb{}\replacesymb{}ҡ\replacesymb{}\restoreglue & 一去二三里，烟村四五家。 \\
   UTF-8 & 山光悦鸟性，潭影空人心。\footnotemark & 山光悦鸟性，潭影空人心。 & \clearglue{}灞卞厜鎮﹂笩鎬э紝娼奖绌轰汉蹇冦\replacesymb{}\replacesymb{}\restoreglue \\
-  大五码 & 斯是陋室，唯吾德馨。\footnotemark & \replacesymb{}\replacesymb{}\replacesymb{}O\replacesymb{}\replacesymb{}\replacesymb{}ǡA\replacesymb{}{\DejaVu{}ߧ}\^{}\replacesymb{}w\replacesymb{}ɡC & 吹琌斑紈纳 \\
+  大五码 & 斯是陋室，惟吾德馨。\footnotemark & \replacesymb{}\replacesymb{}\replacesymb{}O\replacesymb{}\replacesymb{}\replacesymb{}ǡA\replacesymb{}\replacesymb{}\replacesymb{}\^{}\replacesymb{}w\replacesymb{}ɡC & 吹琌暴紈纳 \\
   Shift-JIS & 祇園精舍の鐘の声、諸行無常の響きあり。\footnotemark & \replacesymb{}\_{}\replacesymb{}\replacesymb{}\replacesymb{}\replacesymb{}\replacesymb{}q\replacesymb{}̏\replacesymb{}\replacesymb{}̐\replacesymb{}\replacesymb{}A\replacesymb{}\replacesymb{}\replacesymb{} s\replacesymb{}\replacesymb{}\replacesymb{}\replacesymb{}̋\replacesymb{}\replacesymb{}\replacesymb{}\replacesymb{}\replacesymb{}\replacesymb{}\replacesymb{}B & 媉墍惛鋛偺忇偺惡丄彅峴柍忢偺嬁偒偁傝丅 \\
   Windows-1252 & Gud är min säkra borg.\footnotemark & Gud \replacesymb{}r min s\replacesymb{}kra borg. & \clearglue{}Gud 鋜 min s鋕ra borg.\restoreglue \\
   \bottomrule
 \end{longtblr}
+\footnotetext[10]{出自日本古代文学著作《平家物语》，大意：祇园精舍钟声响，诉说世事本无常（周作人、申非译，人民文学出版社 1984 年版）。}
 \footnotetext{曾为瑞典皇室格言的一部分，出自《旧约圣经·诗篇》第 59 篇 17 节瑞典语译本，大意：上帝是我的庇护所（《新旧约全书－和合本修订版》，香港圣经公会 2010 年版）。}
 
 似乎以 UTF-8 与 GB18030 解码的文本都有一些明显的特征。UTF-8 解出来的文本，除了它自己编码的以外，基本上或多或少有一些「\replacesymb{}」。「\replacesymb{}」是 \MissingTT{U+FFFD}，用来代替那些不合法的编码字节。当文本出现大量「\replacesymb{}」时，想复制出来到别处解析是不行的，因为「\replacesymb{}」代表着「字符丢失」，再也找不回来了。
 
-这么说来，UTF-8 显得有点「独领风骚」，许多编码那里正常的编码字节，在 UTF-8 这里却有相当一部分不合其法，只得以「\replacesymb{}」代替。GB18030 解出来的文本就好看一些\CJKsout*{（什么五十步笑百步）}，一般都会有些汉字，而其中由 Shift-JIS 编码的内容解码而来的文本，全部都是汉字。其他的就多多少少带点别的符号了。
+这么说来，UTF-8 显得有点「独领风骚」，许多编码那里正常的编码字节，在 UTF-8 这里却有相当一部分不合其法，只得以「\replacesymb{}」代替。GB18030 解出来的文本就好看一些\CJKsout*{（五十步笑百步）}，一般都会有些汉字，而其中由 Shift-JIS 编码的内容解码而来的文本，全部都是汉字。其他的就多多少少带点别的符号了。
 
 现在我们来玩一玩，如果把一堆「\replacesymb{}」用 UTF-8 编码再用 GB18030 解码会怎么样？一堆「\replacesymb{}」的 UTF-8 编码是 \MissingTT{EF BF BD EF BF BD ……}，塞进 GB18030，正好两字节一组，\MissingTT{EF BF} 是锟、\MissingTT{BD EF} 是斤、\MissingTT{BF BD} 是拷，于是，「锟斤拷……」就这么诞生了。
 
@@ -772,7 +776,7 @@ UTF-8 是一种彻彻底底的变长编码方案，它的单字符编码码长�
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.75\textwidth]{assets/advanced/Notepad3.png}
+  \includegraphics[width=.7\textwidth]{assets/advanced/Notepad3.png}
   \caption{用 Notepad3 打开不同编码的文本}
   \label{fig:Open_text_with_Notepad3}
 \end{figure}
