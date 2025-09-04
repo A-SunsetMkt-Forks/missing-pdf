@@ -238,7 +238,7 @@ fn main() {
 除了「文言」之外，上面提到的几门编程语言在当下都比较常用，这里简要介绍一下。
 
 \begin{itemize}
-  \item C 语言是 C++ 的「祖宗」，具体来说，C++ 去掉了 C 中少许不妙的特性，但增加了许多更妙的功能，因此人们常用「C/C++」这样的名字来并称它们。它们是相当基础的编程语言，下限较低、上限很高，因此用途非常广泛。\regcolor{大多数操作系统，包括我们正在使用的 Windows，底层都使用 C/C++ 开发。}同时，大量的电脑软件、游戏引擎、乃至《你缺计课》的服务端软件\footnote{我们使用 NGINX。它会在你访问我们的网站时，把网页的内容发送给你。}都是使用 C/C++ 编写的。
+  \item C 语言是 C++ 的「祖宗」，具体来说，C++ 去掉了 C 中少许不妙的特性，但增加了许多更妙的功能，因此人们常用「C/C++」这样的名字来并称它们。它们是相当基础的编程语言，下限较低、上限很高，因此用途非常广泛。\regcolor{大多数操作系统，包括我们正在使用的 Windows，底层都使用 C/C++ 开发。}同时，大量的电脑软件、游戏引擎等都是使用 C/C++ 编写的。
   \item Java 相比与 C++，具有更清晰的语法，编写难度较低，既容易学习又功能丰富，同时它还是曾经开发安卓 app 的首选（或者说是唯一）语言。至今，\regcolor{大量的安卓 app 中仍有许多 Java 代码}。此外，很多服务端软件、电脑游戏《我的世界》都使用 Java 开发。
   \item Python 是一门极为灵活的语言（诨名「胶水语言」）——同样的任务，它可以用多种方式实现，能写出非常简洁的代码，并同时保持一定的可读性。Python 还是一门非常开放的语言：它拥有一个庞大的社区，其中\regcolor{有许多别人写好的「库」供我们直接使用，这些库让 Python 几乎无所不能}。不过，Python 的运行速度很慢。这决定了 \regcolor{Python 主要被用在数据分析、科学研究、人工智能等领域}，而不是用来编写「真正干活的」软件。也基于类似的原因，Python 成了现在「编程入门」的标配。
   \item Rust 是一门新兴的编程语言，诞生至今不过十余年。它吸收了来自多种不同编程语言的优秀设计，并以「安全」作为一大特色——这能在一定程度上减少程序中漏洞的产生。目前，Rust 正在快速发展，并已经在产业界有些应用——Linux 操作系统就开始使用 Rust 编写一部分代码。
@@ -296,14 +296,14 @@ fn main() {
 
 在\chapref{cha:characters-and-encodings}一章中我们提到，计算机中的一切信息都由电路承载：每条信息都是由若干位 0 和 1 这样的二进制数字所组成，反映在电路上，就是「有电」「无电」之间的排列组合。为了在硬件上运行程序，我们自然就先得寻找「程序」在硬件上的表达方式，或者说，将程序由源代码转换为 0 和 1 的序列的方式。
 
-上一节，我们构想了一个番茄炒蛋菜谱「程序」，不过那时程序预计的「硬件」就是我们人类。现在，我们想做一台炒菜机器「你缺饭课一号」，让它代替人类来执行这份程序。然而，「你缺饭课一号」并不能看懂中文、英文这样的人类语言，因此不能直接看懂那份「源代码」。作为炒菜机器，它能做的，就是不断读取某处并排的 8 根导线上传来的信号（它们代表一个 8 位二进制数），然后根据这组信号的值，执行一个简单的动作。那么，我们可以给「你缺饭课一号」赋予这样的设计：
-
 \begin{figure}[htb!]
   \centering
   \includegraphics[width=.65\textwidth]{assets/surpass/YMSC-1.pdf}
   \caption{隆重推出「你缺饭课一号」！}
   \label{fig:YMSC-1}
 \end{figure}
+
+上一节，我们构想了一个番茄炒蛋菜谱「程序」，不过那时程序预计的「硬件」就是我们人类。现在，我们想做一台炒菜机器「你缺饭课一号」，让它代替人类来执行这份程序。然而，「你缺饭课一号」并不能看懂中文、英文这样的人类语言，因此不能直接看懂那份「源代码」。作为炒菜机器，它能做的，就是不断读取某处并排的 8 根导线上传来的信号（它们代表一个 8 位二进制数），然后根据这组信号的值，执行一个简单的动作。那么，我们可以给「你缺饭课一号」赋予这样的设计：
 
 \begin{itemize}
   \item 机器一共有 4 个碗，依次编号 0、1、2、3，可以在烹饪过程中装食材、食物。
@@ -379,7 +379,7 @@ fn main() {
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.8\textwidth]{assets/surpass/CPU_exec.pdf}
+  \includegraphics[width=.9\textwidth]{assets/surpass/CPU_exec.pdf}
   \caption{CPU 的工作周期}
   \label{fig:CPU_exec}
 \end{figure}
@@ -425,6 +425,7 @@ fn main() {
 \begin{figure}[htb!]
   \centering
   \includegraphics[width=.7\textwidth]{assets/surpass/8086.png}
+  
   \caption{英特尔 8086}
   \label{fig:8086}
 \end{figure}
@@ -460,18 +461,19 @@ x86 的巨大成功还吸引来了其他一些 CPU 厂商，它们从英特尔�
 
 此时的英特尔有点尴尬——自己推出的 IA-64 无人问津，而身为「同人作者」的 AMD 反而给自己的 x86 升级了。不过，日子还得凑合过嘛……2004 年，英特尔发布了具有里程碑意义的「奔腾 4 Prescott」（Pentium 4 Prescott）处理器。其中一块里程碑，就是使用了 AMD64 指令集，成为了英特尔的第一款 64 位的 x86 处理器。曾经，人们总认为 AMD 的产品是英特尔的仿制品，可是风水轮流转，同人成官方。
 
-当然，英特尔没有使用「AMD64」这个名字。他们把它改名成了「Intel 64」。世人一想，你们这各自拉扯，我们到底应该用哪个名称呢？于是，人们索性\regcolor{用「x86-64」来表示这种 64 位的 x86 指令集}，以和原本纯 32 位的 x86 作区分。后来，人们也会\regcolor{把 x86-64 简称为「x64」}，用来表示这种指令集。后来的故事，就是我们在第一章\chapref{cha:computer-and-its-components}中所介绍的了那样了——英特尔和 AMD 成为了 x86-64 指令集的两大霸主，开始统治着全世界的电脑 CPU 市场，直到今天。
+当然，英特尔没有使用「AMD64」这个名字。他们把它改名成了「Intel 64」。世人一想，你们这各自拉扯，我们到底应该用哪个名称呢？于是，人们索性\regcolor{用「x86-64」来表示这种 64 位的 x86 指令集}，以和原本纯 32 位的 x86 作区分。后来，人们也会\regcolor{把 x86-64 简称为「x64」}，用来表示这种指令集。后来的故事，就是我们在第一章\chapref{cha:computer-and-its-components}中所介绍的那样了——英特尔和 AMD 成为了 x86-64 指令集的两大霸主，开始统治着全世界的电脑 CPU 市场，直到今天。
 
 今天，x86-64 的指令数量已经达到了上千条，是一套名副其实的「复杂指令集」。这其中的一个原因便是 \regcolor{x86 指令集自 8086 诞生以来，就一直采用向后兼容的进化模式}：每一次更新都是在之前的基础上增加功能，因此旧软件基本都能在新硬件上直接使用——即便在今天的最新电脑上，许多近二十年前的软件（比如 Office 2003）仍然能正常运行。这也是 x86 家族指令集能够在桌面电脑领域占据绝对优势的重要原因。
 
 \begin{note}
-  得益于这种兼容性，64 位的 CPU 上既可以运行 64 位的操作系统，也可以运行 32 位的操作系统。而在 64 位的操作系统下，也可以同时存在 32 位和 64 位的软件。目前，几乎所有的电脑都在 x86-64 上运行 64 位的操作系统，不过仍然有许多 32 位的软件正在和 64 位的软件共处。打开【任务管理器】，展开【详细信息】并转到【进程】页面，正运行在 32 位的软件后方会用【(32 位)】标出。
-
   \begin{center}
-    \includegraphics[width=.65\textwidth]{assets/surpass/32bit_in_taskmgr.png}
+    \includegraphics[width=.6\textwidth]{assets/surpass/32bit_in_taskmgr.png}
+    \vspace*{-2ex}
     \captionof{figure}{任务管理器中的 32 位标记}
     \label{fig:32bit_in_taskmgr}
   \end{center}
+  
+  得益于这种兼容性，64 位的 CPU 上既可以运行 64 位的操作系统，也可以运行 32 位的操作系统。而在 64 位的操作系统下，也可以同时存在 32 位和 64 位的软件。目前，几乎所有的电脑都在 x86-64 上运行 64 位的操作系统，不过仍然有许多 32 位的软件正在和 64 位的软件共处。打开【任务管理器】，展开【详细信息】并转到【进程】页面，正运行在 32 位的软件后方会用【(32 位)】标出。
 \end{note}
 
 对于大多数读者的电脑，右键桌面上的【此电脑】选择【属性】，就能在【设备规格】一栏下方的【系统类型】看见这样一句话：
@@ -482,20 +484,22 @@ x86 的巨大成功还吸引来了其他一些 CPU 厂商，它们从英特尔�
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.6\textwidth]{assets/surpass/x64_in_settings.png}
+  \includegraphics[width=.65\textwidth]{assets/surpass/x64_in_settings.png}
   \caption{系统设置中的指令集说明}
   \label{fig:x64_in_settings}
 \end{figure}
+\vspace*{-2ex}
 
 \subsubsection{统治移动世界的 ARM}
 
 尽管自 8086 开始，x86 指令集就几乎统治了个人电脑领域。然而，「计算机」不止局限于我们桌子上的个人电脑——无论是手机、平板电脑、MP3 这一众智能设备，还是日用的电视机遥控器、电高压锅、洗衣机等诸多电器，它们的内部也拥有像电脑一样的 CPU 来实现自动控制和人机交互，因而也是一种形式的计算机（称为「嵌入式计算机」）。而在这片属于移动和嵌入式设备的天地中，又是另一派勃勃生机的景象。
 
-1985 年，来自英国的艾康电脑公司（Acorn Computers）发布了一款名叫「ARM1」的原型处理器，「ARM」的含义是「Acorn 精简指令集机器」（Acorn RISC\footnote{是「精简指令集电脑」（Reduced Instruction Set Computer）的缩写。} Machine）。作为一款 32 位处理器，它与同时代包括 80286 在内的 CPU 最大的不同是：\regcolor{它指令集极为简单，只有数十条基本指令}，并且舍弃了其他许多处理器中的复杂设计。这种指令集就称为「ARM」指令集。次年，ARM2 投产，\regcolor{精简的设计使得它只需消耗极少的电能，就能实现多样的功能}，这为它日后在便捷式设备和微型设备中的大放异彩埋下了伏笔。
+1985 年，来自英国的艾康电脑公司（Acorn Computers）发布了一款名叫「ARM1」的原型处理器，「ARM」的含义是「Acorn 精简指令集机器」（Acorn RISC\footnote{「RISC」是「Reduced Instruction Set Computer」（精简指令集电脑）的缩写。} Machine）。作为一款 32 位处理器，它与同时代包括 80286 在内的 CPU 最大的不同是：\regcolor{它指令集极为简单，只有数十条基本指令}，并且舍弃了其他许多处理器中的复杂设计。这种指令集就称为「ARM」指令集。次年，ARM2 投产，\regcolor{精简的设计使得它只需消耗极少的电能，就能实现多样的功能}，这为它日后在便捷式设备和微型设备中的大放异彩埋下了伏笔。
 
-\begin{wrapfigure}[7]{r}{7.2cm}
+\begin{wrapfigure}[6]{r}{5.2cm}
   \centering
-  \includegraphics[width=7cm]{assets/surpass/Arm_logo_2017.pdf}
+  \vspace*{2ex}
+  \includegraphics[width=5cm]{assets/surpass/Arm_logo_2017.pdf}
   \caption{安谋的徽标}
   \label{fig:Arm_logo_2017}
 \end{wrapfigure}
@@ -504,7 +508,7 @@ x86 的巨大成功还吸引来了其他一些 CPU 厂商，它们从英特尔�
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.75\textwidth]{assets/surpass/ARM610_die.jpg}
+  \includegraphics[width=.7\textwidth]{assets/surpass/ARM610_die.jpg}
   \caption{ARM 610}
   \label{fig:ARM610_die}
 \end{figure}
@@ -531,7 +535,7 @@ x86 的巨大成功还吸引来了其他一些 CPU 厂商，它们从英特尔�
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.8\textwidth]{assets/surpass/LS3A6K_webpage.png}
+  \includegraphics[width=.75\textwidth]{assets/surpass/LS3A6K_webpage.png}
   \caption{龙芯官网的 3A6000}
   \label{fig:LS3A6K_webpage}
 \end{figure}
@@ -571,7 +575,7 @@ x86 的巨大成功还吸引来了其他一些 CPU 厂商，它们从英特尔�
 
 \begin{figure}[htb!]
   \centering
-  \includegraphics[width=.65\textwidth]{assets/surpass/Sheet_and_folders.png}
+  \includegraphics[width=.75\textwidth]{assets/surpass/Sheet_and_folders.png}
   \caption{名册和文件夹}
   \label{fig:Sheet_and_folders}
 \end{figure}
@@ -609,7 +613,7 @@ x86 的巨大成功还吸引来了其他一些 CPU 厂商，它们从英特尔�
 
 事实上，相信许多人对计算机的兴趣，都是从一些网站上的小游戏开始的。当年的我们，不知道游戏中的按钮上写的是什么，但亲自尝试之后，知道了「点【PLAY】可以玩」「点【OPTION】是设置」「点【QUIT】是退出」……这种探索未知的快乐，深深印刻在了我们幼小的心灵中，并保留到了现在。人常说：「兴趣是最好的老师。」幼时依靠天性培养的兴趣，会令心中的种子破土发芽，加以引导与呵护，有朝一日终能长成参天大树。
 
-再看初等和中等教育阶段。按理说拥有了一定基础，这一阶段，培养编程思维将会更容易。然而，一些学校的编程学习，只是死背概念、硬做题；又有一些学校只将眼光放在奥赛，却不普及计算机基础知识。学习编程的真谛被功利化的教育模式冲淡，培养出来的学生却不知计算机的基本知识，这是病态而不科学的。我们时不时看到如此割裂的现实：许多中小学在程序设计竞赛上屡传捷报，但是更多的人却以「电脑小白」的身份步入社会\footnote{比如 \url{https://www.bilibili.com/video/BV11w4m1y7kA/} 这样的}，甚至给了《你缺计课》这样的作品诞生的空间。
+再看初等和中等教育阶段。按理说拥有了一定基础，这一阶段，培养编程思维将会更容易。然而，一些学校的编程学习，只是死背概念、硬做题；又有一些学校只将眼光放在奥赛，却不普及计算机基础知识。学习编程的真谛被功利化的教育模式冲淡，培养出来的学生却不知计算机的基本知识，这是病态而不科学的。我们时不时看到如此割裂的现实：许多中小学在程序设计竞赛上屡传捷报，但是更多的人却以「电脑小白」的身份步入社会\footnote{比如 \url{https://www.bilibili.com/video/BV11w4m1y7kA/} 这样的。}，甚至给了《你缺计课》这样的作品诞生的空间。
 
 种种现象，都要归结到一个问题——「编程教育为了什么？」回顾我们上一节点出的「编程之真谛」，这个问题的答案呼之欲出：编程教育的价值，在于为我们——每一位生活在信息时代的人——提供一个帮手，一件能创造工具、提升效率的有力工具。不是每个人都是程序员，也不是每个人都要靠编程赚钱，对大多数人而言，它是一门技能、一种素养。但在得到这种素养之前，学习计算机基础知识显然尤为必要。这就是《你缺失的那门计算机课》的初衷与使命。我们不教编程，但教「何为编程」；我们不教使用软件，但我们教「如何学习使用软件」；我们不教装配、制造计算机，但我们教「计算机各部分的作用」……我们希望能做到脚踏实地，也希望计算机基础教育同样如此。
 
